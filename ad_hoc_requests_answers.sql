@@ -30,7 +30,7 @@ GROUP BY c.campaign_name;
 -- Note: ISU% (Incremental Sold Quantity Percentage) is calculated as the percentage increase/decrease in quantity sold (after promo) compared to quantity sold (before promo)
 
 SELECT p.category,
-    ROUND(((SUM(e.`quantity_sold(before_promo)`) - SUM(e.`quantity_sold(after_promo)`)) / SUM(e.`quantity_sold(before_promo)`)) * 100, 2) AS isu_percentage,
+    ROUND(((SUM(e.`quantity_sold(after_promo)`) - SUM(e.`quantity_sold(before_promo)`)) / SUM(e.`quantity_sold(before_promo)`)) * 100, 2) AS isu_percentage,
     RANK() OVER (ORDER BY ((SUM(e.`quantity_sold(after_promo)`) - SUM(e.`quantity_sold(before_promo)`)) / SUM(e.`quantity_sold(before_promo)`)) DESC) AS rank_order
 FROM dim_products p
 JOIN fact_events e ON p.product_code = e.product_code
