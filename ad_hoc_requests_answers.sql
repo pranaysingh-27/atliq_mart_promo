@@ -1,5 +1,5 @@
 -- 1. List of products with a base price greater than $500 and that are featured in promo type of 'BOGOF' (Buy One Get One Free).
-SELECT p.product_name, e.base_price, e.promo_type
+SELECT DISTINCT p.product_name, e.base_price, e.promo_type
 FROM dim_products p
 JOIN fact_events e ON p.product_code = e.product_code
 WHERE e.base_price > 500 AND e.promo_type = 'BOGOF';
