@@ -39,11 +39,11 @@ WHERE c.campaign_name = 'Diwali'
 GROUP BY p.category;
 
 -- ---------------------------------------------------------------------
--- Create a report featuring the Top 5 products, ranked by Incremental Revenue Percentage (IR%), across all campaigns. The report will provide essential information including product name, category, and ir%. 
+-- 5. Create a report featuring the Top 5 products, ranked by Incremental Revenue Percentage (IR%), across all campaigns. The report will provide essential information including product name, category, and ir%. 
 -- This analysis helps identify the most successful products in terms of incremental revenue across our campaigns, assisting in product optimization.
 
 SELECT p.product_name, p.category,
-    ROUND(((SUM(e.`quantity_sold(before_promo)` * e.base_price) - SUM(e.`quantity_sold(after_promo)` * e.base_price)) / (SUM(e.`quantity_sold(before_promo)` * e.base_price))) * 100, 2) AS ir_percentage
+    ROUND(((SUM(e.`quantity_sold(after_promo)` * e.base_price) - SUM(e.`quantity_sold(before_promo)` * e.base_price)) / (SUM(e.`quantity_sold(before_promo)` * e.base_price))) * 100, 2) AS ir_percentage
 FROM dim_products p
 JOIN fact_events e ON p.product_code = e.product_code
 GROUP BY p.product_name, p.category
